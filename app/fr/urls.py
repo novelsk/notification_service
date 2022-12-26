@@ -25,12 +25,10 @@ from drf_yasg import openapi
 
 schema_view = get_schema_view(
    openapi.Info(
-      title="Snippets API",
-      default_version='v1',
-      description="Test description",
-      terms_of_service="https://www.google.com/policies/terms/",
-      contact=openapi.Contact(email="contact@snippets.local"),
-      license=openapi.License(name="BSD License"),
+      title="Notification Service",
+      default_version='1.0',
+      description="Тестовое задание от: ООО \"Фабрика Решений\"",
+      contact=openapi.Contact(url='https://t.me/novel_sk'),
    ),
    public=True,
    permission_classes=(permissions.AllowAny, )

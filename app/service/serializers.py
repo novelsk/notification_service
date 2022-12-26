@@ -32,3 +32,11 @@ class MessageSerializer(serializers.ModelSerializer):
     class Meta:
         model = Message
         fields = ('id', 'datetime', 'status', 'mailing', 'client')
+
+
+class MailingMessagesSerializer(serializers.ModelSerializer):
+    messages = MessageSerializer(many=True, read_only=True, source='message_mailing')
+
+    class Meta:
+        model = Mailing
+        fields = ('id', 'begin', 'message', 'filters', 'end', 'messages')

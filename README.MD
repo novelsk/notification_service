@@ -13,7 +13,20 @@ DJANGO_DEBUG
 ### 2. Запустить проект в docker, с помощью команды ```docker-compose up```
 
 ## Примечаня
+#### Swagger расположен по ссылкам
+>/docs
+> \
+/swagger
 #### Существующий superuser
 >login: root
 > \
 password: factory
+
+#### Стэк
+```
+Django
+Django REST Framework
+PostgreSQL
+Docker
+drf-yasg
+```
