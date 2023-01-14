@@ -1,2 +1,6 @@
 /venv/
 /.dev.env
+/db/
+/rabbit/
+/README_LOCAL.MD
+/.idea/

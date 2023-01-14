@@ -8,6 +8,9 @@ POSTGRES_PASSWORD
 POSTGRES_DB
 SECRET_KEY
 DJANGO_DEBUG
+RABBITMQ_DEFAULT_USER
+RABBITMQ_DEFAULT_PASS
+JWT_TOKEN
 ````
 ##### пример: ```.dev.env.example```
 ### 2. Запустить проект в docker, с помощью команды ```docker-compose up```
@@ -17,10 +20,6 @@ DJANGO_DEBUG
 >/docs
 > \
 /swagger
-#### Существующий superuser
->login: root
-> \
-password: factory
 
 #### Стэк
 ```

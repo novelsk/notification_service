@@ -5,7 +5,7 @@ services:
     container_name: fr_test
     build: ./app
     restart: always
-    command: python manage.py runserver 0.0.0.0:8000
+    command: bash start.sh
     volumes:
       - ./app:/usr/src/app/
     ports:
@@ -25,6 +25,21 @@ services:
       - "5432:5432"
     env_file:
       - ./.dev.env
+    networks:
+      - ft_bridge
+
+  rabbitmq:
+    image: rabbitmq:3.10-management-alpine
+    container_name: ft_rabbitmq
+    hostname: fab
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    env_file:
+      - ./.dev.env
+    volumes:
+      - ./rabbit/data/:/var/lib/rabbitmq/
+      - ./rabbit/log/:/var/log/rabbitmq
     networks:
       - ft_bridge
 

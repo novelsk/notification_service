@@ -24,12 +24,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-a!_1_dkrevagd@9u#_$jo4%rn1^iz(hf1fj#+dqc(5osp-@7!9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-if os.environ.get('DJANGO_DEBUG') == 'false':
+if os.environ.get('DJANGO_DEBUG') in ['false', 'False', '0']:
     DEBUG = False
 else:
     DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['0.0.0.0', 'localhost']
 
 
 # Application definition
@@ -140,3 +140,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_URLS_REGEX = r"^/api/.*$"
+
+RABBIT_LOGIN = os.environ.get('RABBITMQ_DEFAULT_USER')
+RABBIT_PASSWORD = os.environ.get('RABBITMQ_DEFAULT_PASS')
+
+CELERY_BROKER_URL = f'pyamqp://{RABBIT_LOGIN}:{RABBIT_PASSWORD}@ft_rabbitmq//'
+CELERY_TIMEZONE = 'Europe/Moscow'
+CELERY_TASK_TRACK_STARTED = True
+CELERY_TASK_TIME_LIMIT = 30 * 60
+
+JWT_TOKEN = os.environ.get('JWT_TOKEN')

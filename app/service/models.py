@@ -19,6 +19,27 @@ class Mailing(models.Model):
         if self.begin > self.end:
             errors[NON_FIELD_ERRORS] = ValidationError('Время начала рассылки позже времени окончания')
 
+    def get_clients(self):
+        temp_qs_list = []
+        out = Client.objects.all()
+        try:
+            operator_code = self.filters['operator_code']
+            out = Client.objects.filter(operator_code=str(operator_code))
+        except KeyError:
+            pass
+
+        try:
+            filters = self.filters['filters']  # type: list
+            for i in filters:
+                temp_qs_list.append(Client.objects.filter(tag=i))
+        except KeyError:
+            pass
+
+        if temp_qs_list:
+            out = out.intersection(*temp_qs_list)
+
+        return out
+
     class Meta:
         verbose_name = 'Рассылка'
         verbose_name_plural = 'Рассылки'

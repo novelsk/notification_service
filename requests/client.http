@@ -1,0 +1,53 @@
+### Получить список всех клиентов
+GET http://localhost:8000/api/client/
+Accept: application/json
+
+### Добавить клиента
+POST http://localhost:8000/api/client/
+Content-Type: application/json
+
+{
+  "value": "content",
+  "phone": 79105155551,
+  "tag": "root",
+  "timezone": "Europe/Moscow"
+}
+
+### Удалить клиента
+DELETE http://localhost:8000/api/client/9/
+Content-Type: application/json
+
+
+### Получить список всех рассылок
+GET http://localhost:8000/api/mailing/
+Accept: application/json
+
+### Создать рассылку
+POST http://localhost:8000/api/mailing/
+Content-Type: application/json
+
+{
+  "begin": "2022-12-24T00:30:48+03:00",
+  "message": "some text",
+  "filters": {
+    "operator_code": 111
+  },
+  "end": "2023-01-24T00:31:28+03:00"
+}
+
+### Обновить рассылку
+PUT http://localhost:8000/api/mailing/9/
+Content-Type: application/json
+
+{
+  "begin": "2022-12-24T00:30:48+03:00",
+  "message": "new text",
+  "filters": {
+    "string": "Hello World"
+  },
+  "end": "2022-12-24T00:31:28+03:00"
+}
+
+### Удалить рассылку
+DELETE http://localhost:8000/api/mailing/3/
+Content-Type: application/json
