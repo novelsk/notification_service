@@ -14,6 +14,5 @@ urlpatterns = [
     path('api/mailing/send/', views.api_send_created_messages),
     path('api/mailing/statistics/', views.api_mailing_statistics),
     path('api/mailing/', views.api_mailing),
-    path('celery/message/', views.celery_callback),
     path('test/', views.api_test),
 ]

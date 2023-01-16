@@ -24,23 +24,8 @@ def check_mailing(mailing_id):
 
     if mailing.begin < now_time < mailing.end:
         for i in messages:
-            send_message.delay(
-                i.id,
-                i.client.phone,
-                i.mailing.message,
-                mailing_id
-            )
+            send_message.delay(i.id)
 
     elif mailing.begin > now_time:
         for i in messages:
-            send_message.apply_async(
-                (
-                    i.mailing.id,
-                    i.client.phone,
-                    i.mailing.message,
-                    mailing_id
-                ),
-                eta=mailing.begin
-            )
-
-
+            send_message.apply_async((i.id,), eta=mailing.begin)

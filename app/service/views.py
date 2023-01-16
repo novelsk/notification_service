@@ -112,36 +112,9 @@ def api_test(request):
         return Response(serializer.data)
 
 
-@api_view(['POST'])
-def celery_callback(request):
-    if request.method == 'POST':
-        data = request.POST
-        if data.get('secret_key') == 'secret_key':
-            message = Message.objects.get(id=data.get('id'))
-            status_code = data.get('status_code')
-
-            if status_code == 200:
-                message.status = Message.Status.DELIVERED
-            elif status_code == '400':
-                print(f'status: {status_code}\nThe specified JWT token is outdated')
-                message.status = Message.Status.SHIPPED
-            elif status_code == '401':
-                print(f'status: {status_code}\nInvalid JWT token specified')
-                message.status = Message.Status.SHIPPED
-            message.save()
-
-            return Response([], status=status.HTTP_200_OK)
-        return Response([], status=status.HTTP_400_BAD_REQUEST)
-
-
 @api_view(['GET'])
 def api_send_created_messages(request):
     messages = Message.objects.filter(status=Message.Status.CREATED)
     for i in messages:
-        send_message.delay(
-                i.id,
-                i.client.phone,
-                i.mailing.message,
-                i.mailing.id
-            )
+        send_message.delay(i.id,)
     return Response([], status=status.HTTP_200_OK)
